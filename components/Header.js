@@ -9,14 +9,25 @@ import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
 const Header = () => {
 
+  // const toggleCart = ()=>{
+  //   if(ref.current.classList.contains('translate-x-full')){
+  //     ref.current.classList.remove('translate-x-full')
+  //     ref.current.classList.add('translate-x-0')
+  //   }
+  //   else if(!ref.current.classList.contains('translate-x-full')){
+  //     ref.current.classList.remove('translate-x-0')
+  //     ref.current.classList.add('translate-x-full')
+  //   }
+
+  // }
   const toggleCart = ()=>{
-    if(ref.current.classList.contains('translate-x-full')){
-      ref.current.classList.remove('translate-x-full')
-      ref.current.classList.add('translate-x-0')
+    if(ref.current.classList.contains('hidden')){
+      ref.current.classList.remove('hidden')
+      ref.current.classList.add('block')
     }
-    else if(!ref.current.classList.contains('translate-x-full')){
-      ref.current.classList.remove('translate-x-0')
-      ref.current.classList.add('translate-x-full')
+    else if(!ref.current.classList.contains('hidden')){
+      ref.current.classList.remove('block')
+      ref.current.classList.add('hidden')
     }
 
   }
@@ -60,8 +71,8 @@ const Header = () => {
       </button>
     </div>
 
-
-    <div ref={ref} className="z-20 h-fit w-72 sideCart absolute top-0 right-0 bg-gray-200 px-8 py-10 transform transition-transform translate-x-full">
+    {/* transform transition-transform translate-x-full */}
+    <div ref={ref} className="h-fit w-72 sideCart absolute top-0 right-0 bg-gray-200 px-8 py-10">
       <h2 className='font-bold text-xl text-center'>Shopping Cart</h2>
       <span onClick={toggleCart} className='absolute top-2 right-2 text-xl cursor-pointer text-gray-500'><IoIosCloseCircle />
         </span>
