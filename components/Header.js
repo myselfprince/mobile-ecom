@@ -7,7 +7,9 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { useRef } from 'react';
 import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
-const Header = () => {
+
+
+const Header = ({cart, addToCart, removeFromCart, clearCart, subTotal}) => {
 
   // const toggleCart = ()=>{
   //   if(ref.current.classList.contains('translate-x-full')){
@@ -72,47 +74,29 @@ const Header = () => {
     </div>
 
     {/* transform transition-transform translate-x-full */}
-    <div ref={ref} className="z-10 h-fit w-72 sideCart fixed top-0 right-0 bg-gray-200 px-8 py-10 hidden transform transition-transform max-h-screen overflow-y-auto">
+    <div ref={ref} className="z-10 h-screen w-72 sideCart fixed top-0 right-0 bg-gray-200 px-8 py-10 hidden transform transition-transform max-h-screen overflow-y-auto">
       <h2 className='font-bold text-xl text-center'>Shopping Cart</h2>
       <span onClick={toggleCart} className='absolute top-2 right-2 text-xl cursor-pointer text-gray-500'><IoIosCloseCircle />
         </span>
 
     <ol className='list-decimal font-semibold'>
-      <li> 
+
+      {Object.keys(cart).length==0 && <div className='font-bold text-xl text-center text-blue-500'>No items in the cart</div>}
+
+
+      {Object.keys(cart).map((k)=>{return <li key={k}> 
         <div className="item flex my-5">
-        <div className='w-2/3 font-semibold'>This is my Shopping cart Lorem ipsum, dolor sit amet consectetur adipisicing elit.</div>
-        <div className='flex items-center justify-center w-1/3 font-semibold'><CiCircleMinus className='text-xl cursor-pointer text-gray-900'/><span className='mx-2'>1</span><CiCirclePlus className='text-xl cursor-pointer text-gray-900'/></div>
+        <div className='w-2/3 font-semibold'>{cart[k].name}</div>
+        <div className='flex items-center justify-center w-1/3 font-semibold'><CiCircleMinus onClick={()=>{removeFromCart(k, 1, cart[k].price, cart[k].name, cart[k].size, cart[k].variant)}} className='text-xl cursor-pointer text-gray-900'/><span className='mx-2'>{cart[k].qty}</span><CiCirclePlus onClick={()=>{addToCart(k, 1, cart[k].price, cart[k].name, cart[k].size, cart[k].variant)}} className='text-xl cursor-pointer text-gray-900'/></div>
         </div>
-      </li>
-      <li> 
-        <div className="item flex my-5">
-        <div className='w-2/3 font-semibold'>This is my Shopping cart Lorem ipsum, dolor sit amet consectetur adipisicing elit.</div>
-        <div className='flex items-center justify-center w-1/3 font-semibold'><CiCircleMinus className='text-xl cursor-pointer text-gray-900'/><span className='mx-2'>1</span><CiCirclePlus className='text-xl cursor-pointer text-gray-900'/></div>
-        </div>
-      </li>
-      <li> 
-        <div className="item flex my-5">
-        <div className='w-2/3 font-semibold'>This is my Shopping cart Lorem ipsum, dolor sit amet consectetur adipisicing elit.</div>
-        <div className='flex items-center justify-center w-1/3 font-semibold'><CiCircleMinus className='text-xl cursor-pointer text-gray-900'/><span className='mx-2'>1</span><CiCirclePlus className='text-xl cursor-pointer text-gray-900'/></div>
-        </div>
-      </li>
-      <li> 
-        <div className="item flex my-5">
-        <div className='w-2/3 font-semibold'>This is my Shopping cart Lorem ipsum, dolor sit amet consectetur adipisicing elit.</div>
-        <div className='flex items-center justify-center w-1/3 font-semibold'><CiCircleMinus className='text-xl cursor-pointer text-gray-900'/><span className='mx-2'>1</span><CiCirclePlus className='text-xl cursor-pointer text-gray-900'/></div>
-        </div>
-      </li>
-      <li> 
-        <div className="item flex my-5">
-        <div className='w-2/3 font-semibold'>This is my Shopping cart Lorem ipsum, dolor sit amet consectetur adipisicing elit.</div>
-        <div className='flex items-center justify-center w-1/3 font-semibold'><CiCircleMinus className='text-xl cursor-pointer text-gray-900'/><span className='mx-2'>1</span><CiCirclePlus className='text-xl cursor-pointer text-gray-900'/></div>
-        </div>
-      </li>
+      </li>})
+     }
      
     </ol>
+    <span className='font-bold'>Subtotal: ₹{subTotal}</span>
 
-    <button className="flex mx-auto mt-9 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Checkout</button>
-    <button className="flex mx-auto mt-2 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Clear Cart</button>
+    <Link href={"/checkout"}><button className="flex mx-auto mt-9 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Checkout</button></Link>
+    <button onClick={clearCart} className="flex mx-auto mt-2 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Clear Cart</button>
 
      
     </div>
