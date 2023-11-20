@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
+import { Ref } from 'react';
 
 function MyApp({ Component, pageProps }) {
 

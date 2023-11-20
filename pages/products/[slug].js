@@ -1,12 +1,19 @@
 import { useRouter } from "next/router"
 import { useState } from "react"
  
-export default function Page({addToCart}) {
+export default function Page({addToCart, showCart}) {
   const router = useRouter();
   const {slug} = router.query;
   const [pin, setPin] = useState();
   const [service, setService] = useState();
+  const [cartAdd, setCartAdd] = useState(false);
 
+  const cartSuccess=()=>{
+    setCartAdd(true)
+    setTimeout(() => {
+      setCartAdd(false);
+    }, 1500);
+  }
 
   const checkServiceability= async()=>{
     let pins = await fetch("http://localhost:3000/api/pincode")
@@ -97,7 +104,7 @@ export default function Page({addToCart}) {
         <div className="flex">
           <span className="title-font font-medium text-2xl text-gray-900 my-auto">₹499</span>
           <button className="flex ml-2 sm:ml-10 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Buy Now</button>
-          <button onClick={()=>{addToCart(slug, 1, 499, "Apple iphone(XL, Red)","XL","Red")}} className="flex ml-2 sm:ml-10 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add to Cart</button>
+          <button onClick={()=>{addToCart(slug, 1, 499, "Apple iphone(XL, Red)","XL","Red"); cartSuccess()}} className="flex ml-2 sm:ml-10 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add to Cart</button>
           {/* <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
             <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
               <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
@@ -105,6 +112,9 @@ export default function Page({addToCart}) {
           </button> */}
         </div>
 
+        {cartAdd && <div class="font-regular mt-3 block rounded-lg bg-green-500 p-4 text-base leading-5 text-white opacity-100">
+                  Successfully Added to Cart!
+                    </div>}
         <div className="mt-9 w-2/4 text-gray-600 flex items-center justify-start">
             <input
               onChange={onChangePin}
@@ -113,6 +123,7 @@ export default function Page({addToCart}) {
               className="bg-white h-8 px-3 text-sm focus:outline-none border-2"
 
             />
+            
          
             <button onClick={checkServiceability} type="button" className="flex ml-3 text-white py-1 px-3 bg-indigo-500 border-0 focus:outline-none hover:bg-indigo-600 rounded">
            Check
@@ -123,12 +134,15 @@ export default function Page({addToCart}) {
               {(!service && service!=null) && <p className='text-red-600'>We cant deliver to this pincode</p>}
               {(service && service!=null) &&<p className='text-green-600'>Pincode Delivery Available</p>}
             </div>
+           
+            
 
 
 
       </div>
     </div>
   </div>
+         
 </section>
   </>
 }

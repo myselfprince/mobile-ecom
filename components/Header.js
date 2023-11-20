@@ -7,9 +7,10 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { useRef } from 'react';
 import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
+import { MdAccountCircle } from "react-icons/md";
 
 
-const Header = ({cart, addToCart, removeFromCart, clearCart, subTotal}) => {
+const Header = ({cart, addToCart, removeFromCart, clearCart, subTotal, showCart}) => {
 
   // const toggleCart = ()=>{
   //   if(ref.current.classList.contains('translate-x-full')){
@@ -54,9 +55,12 @@ const Header = ({cart, addToCart, removeFromCart, clearCart, subTotal}) => {
 
     
 
-    <div className='flex'>
+    <div className='flex items-center'>
+      <Link href={"/login"}>
+    <MdAccountCircle className='cursor-pointer focus:outline-none rounded text-4xl mt-4 md:mt-0 text-blue-500 mr-2'/>
+      </Link>
 
-    <div className="relative mx-auto text-gray-600 border-2 rounded-xl mr-5">
+    <div className="relative mx-auto text-gray-600 border-2 rounded-xl mr-2">
             <input
               type="search"
               placeholder="Search"
@@ -66,6 +70,8 @@ const Header = ({cart, addToCart, removeFromCart, clearCart, subTotal}) => {
             <ImSearch />
             </button>
           </div>
+
+         
 
 
       <button onClick={toggleCart} className="cursor-pointer inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-xl mt-4 md:mt-0 text-black">
