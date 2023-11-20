@@ -1,5 +1,6 @@
-import Head from "next/head";
+
 import Image from 'next/image';
+import HomeShop from '../components/HomeShop';
 
 export default function Home() {
   return (
@@ -16,6 +17,8 @@ export default function Home() {
       className="w-full h-[450px] rounded-xl"
     />
     </div>
+
+    <HomeShop />
      
     </>
   );
