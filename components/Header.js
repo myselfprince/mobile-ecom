@@ -72,7 +72,7 @@ const Header = () => {
     </div>
 
     {/* transform transition-transform translate-x-full */}
-    <div ref={ref} className="z-10 h-fit w-72 sideCart absolute top-0 right-0 bg-gray-200 px-8 py-10 hidden transform transition-transform">
+    <div ref={ref} className="z-10 h-fit w-72 sideCart fixed top-0 right-0 bg-gray-200 px-8 py-10 hidden transform transition-transform max-h-screen overflow-y-auto">
       <h2 className='font-bold text-xl text-center'>Shopping Cart</h2>
       <span onClick={toggleCart} className='absolute top-2 right-2 text-xl cursor-pointer text-gray-500'><IoIosCloseCircle />
         </span>
